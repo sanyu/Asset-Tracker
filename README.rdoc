@@ -2,7 +2,8 @@
 
 === About This Fork
 
-This repo has been forked from https://https://github.com/mechcow/Asset-Tracker.git in order to upgrade to Rails 2.3.14 (while refactoring some code)
+This repo has been forked from https://github.com/mechcow/Asset-Tracker.git in order to upgrade to Rails 2.3.14 (while refactoring some code).
+
 Stay tuned for new features.
 
 
@@ -56,4 +57,5 @@ You probably now want to first add a Location before you add anything else.
 == Authors
 
 Original author was Preston Lee: http://www.prestonlee.com/2009/01/14/asset-tracking-ruby-web-app/
+
 Modified and adapted by Joel Heenan, Giorgio Mandolfo and Sanyu Melwani for ThreatMetrix. 

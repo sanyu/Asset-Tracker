@@ -6,15 +6,18 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :kinds
   map.resources :vips
 
-  map.resources :assets , :collection =>{ :autocomplete_for_tag_name => :get, :tags => :get } do |assets|
+  map.resources :assets , :collection =>{:edit_multiple => :post, :update_multiple => :put, :autocomplete_for_tag_name => :get, :tags => :get } do |assets|
    assets.resources :roles
   end
 
   map.resources :cobbler_sync_jobs
-  map.resources :physical_machines, :member => {:guests => :get,
-                                                :deep_clone => :get}
-  map.resources :virtual_machines, :member => {:parent => :get, 
-                                               :deep_clone => :get}
+  map.resources :physical_machines, :member => {:guests     => :get,
+                                                :deep_clone => :get,
+                                                :delete     => :get }
+
+  map.resources :virtual_machines, :member => {:parent      => :get,
+                                               :deep_clone  => :get,
+                                               :delete      => :get}
 
   map.resources :models
   map.resources :manufacturers
@@ -36,9 +39,9 @@ ActionController::Routing::Routes.draw do |map|
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
   # This route can be invoked with purchase_url(:id => product.id)
-  map.clone_asset 'assets/:id/clone', :controller => 'assets', :action => 'clone', :as => 'clone'
-  map.dns_asset 'assets/:id/dns', :controller => 'assets', :action => 'dns', :as => 'dns'
-  map.live_search 'assets/live_search/:searching', :controller=> 'assets', :action => 'live_search', :as => 'live_search'
+  # map.clone_asset 'assets/:id/clone', :controller => 'assets', :action => 'clone', :as => 'clone'
+  # map.dns_asset 'assets/:id/dns', :controller => 'assets', :action => 'dns', :as => 'dns'
+  # map.live_search 'assets/live_search/:searching', :controller=> 'assets', :action => 'live_search', :as => 'live_search'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
