@@ -1,24 +1,20 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.resources :locations
-  map.resources :examples
-  map.resources :users
-  map.resources :kinds
-  map.resources :vips
+  map.resources  :locations
+  map.devise_for :users
+  map.resources  :users
+  map.resources  :kinds
+  map.resources  :vips
 
-  map.resources :assets , :collection =>{:edit_multiple => :post, :update_multiple => :put, :autocomplete_for_tag_name => :get, :tags => :get } do |assets|
-   assets.resources :roles
-  end
+  map.resources  :assets ,:only => :index, :collection =>{:edit_multiple => :post, :update_multiple => :put, :autocomplete_for_tag_name => :get, :tags => :get }
 
   map.resources :cobbler_sync_jobs
-  map.resources :physical_machines, :member => {:guests     => :get,
-                                                :deep_clone => :get,
-                                                :delete     => :get }
-
-  map.resources :virtual_machines, :member => {:parent      => :get,
-                                               :deep_clone  => :get,
-                                               :delete      => :get}
-
+  map.resources :physical_machines, :member => {:guests     => :get, :deep_clone => :get, :delete     => :get } do |physical_machines|
+    physical_machines.resources :roles
+  end
+  map.resources :virtual_machines, :member => {:parent      => :get, :deep_clone  => :get, :delete      => :get} do |virtual_machines|
+    virtual_machines.resources :roles
+  end
   map.resources :models
   map.resources :manufacturers
   map.resources :roles
@@ -27,9 +23,7 @@ ActionController::Routing::Routes.draw do |map|
                                               :test_if_used => :get }
 
 
-  map.resource :user_session
   map.resource :account, :controller => "users"
-
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -72,6 +66,6 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing the them or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  # map.connect ':controller/:action/:id'
+  # map.connect ':controller/:action/:id.:format'
 end
